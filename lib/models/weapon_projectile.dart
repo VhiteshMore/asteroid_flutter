@@ -1,10 +1,7 @@
 import 'package:asteroid_flutter/models/particle.dart';
-import 'package:asteroid_flutter/models/weapon_projectile.dart';
 
-class Player implements Particle {
+class WeaponProjectile extends Particle {
 
-  final double height;
-  final double width;
   @override
   final double posX;
   @override
@@ -15,35 +12,18 @@ class Player implements Particle {
   @override
   final double speed;
   @override
-  final double acceleration;
-  final double score;
+  double? acceleration;
 
-  List<WeaponProjectile> projectiles;
-
-  Player({
-    required this.height,
-    required this.width,
+  WeaponProjectile({
     required this.posX,
     required this.posY,
     required this.direction,
     required this.speed,
-    required this.acceleration,
-    required this.score,
-    List<WeaponProjectile>? projectiles,
-  }) : projectiles = projectiles ?? [];
+  });
 
   //move or update
   @override
   void updatePosition() {}
-
-  //change or update direction
-  @override
-  void updateDirection() {}
-
-  @override
-  set acceleration(double? _acceleration) {
-    acceleration = _acceleration;
-  }
 
   @override
   set direction(double? _direction) {
@@ -65,8 +45,11 @@ class Player implements Particle {
     speed = _speed;
   }
 
-  set score(double? _score) {
-    score = _score;
+  @override
+  void updateDirection() {
+    // TODO: implement updateDirection
   }
+
+
 
 }

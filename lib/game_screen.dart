@@ -7,7 +7,7 @@ class GameScreen extends StatefulWidget {
   State<GameScreen> createState() => _GameScreenState();
 }
 
-class _GameScreenState extends State<GameScreen> {
+class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateMixin {
 
   final ValueNotifier<Offset> _offsetNotifier = ValueNotifier(Offset.zero);
 
@@ -28,7 +28,8 @@ class _GameScreenState extends State<GameScreen> {
           ),
           ValueListenableBuilder(
             valueListenable: _offsetNotifier, builder: (context, value, child) {
-            return Positioned(left: value.dx,
+            return Positioned(
+                left: value.dx,
                 top: value.dy,
                 child: Container(
                     height: 21, width: 21, color: Colors.white,));

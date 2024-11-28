@@ -45,22 +45,22 @@ class Asteroid implements Particle{
 
   @override
   set direction(double? _direction) {
-    // TODO: implement direction
+    direction = _direction;
   }
 
   @override
   set posX(double? _posX) {
-    // TODO: implement posX
+    posX = _posX;
   }
 
   @override
   set posY(double? _posY) {
-    // TODO: implement posY
+    posY = _posY;
   }
 
   @override
   set speed(double? _speed) {
-    // TODO: implement speed
+    speed = _speed;
   }
 
   @override
