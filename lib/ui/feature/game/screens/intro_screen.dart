@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class IntroScreen extends StatefulWidget {
 
-  static String path = '/IntroScreen';
+  static String route = '/';
 
   const IntroScreen({super.key});
 
@@ -27,7 +27,7 @@ class _IntroScreenState extends State<IntroScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushReplacementNamed(GameScreen.path);
+                    Navigator.of(context).pushReplacementNamed(GameScreen.route);
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),

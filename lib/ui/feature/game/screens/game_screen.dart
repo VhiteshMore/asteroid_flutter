@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class GameScreen extends StatefulWidget {
 
-  static String path = '/GameScreen';
+  static String route = '/GameScreen';
 
   const GameScreen({super.key});
 

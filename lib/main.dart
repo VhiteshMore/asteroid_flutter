@@ -13,13 +13,30 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: IntroScreen.path,
       color: Colors.black,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Material(child: GameScreen()),
+      routes: {
+        "/": (context) => const IntroScreen(),
+        GameScreen.route: (context) => const GameScreen(),
+      },
+      // onGenerateRoute: ((settings) {
+      //   if (settings.name == OtpScreen.route) {
+      //     final args = settings.arguments as Map;
+      //     return MaterialPageRoute(
+      //       builder: (context) =>
+      //           OtpScreen(mobileNumber: args[Args.argMobileNumber], country: args[Args.argSelectedCountry],),
+      //     );
+      //   } else if (settings.name == PersonalDetailScreen.route) {
+      //     final args = settings.arguments as Map;
+      //     return MaterialPageRoute(
+      //       builder: (context) =>
+      //           PersonalDetailScreen(isRegistration: args[Args.argIsRegistration]),
+      //     );
+      //   }
+      // }),
     );
   }
 }
