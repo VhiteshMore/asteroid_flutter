@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class GameScreen extends StatefulWidget {
+
+  static String path = '/GameScreen';
+
   const GameScreen({super.key});
 
   @override
