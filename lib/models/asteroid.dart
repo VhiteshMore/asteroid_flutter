@@ -68,4 +68,9 @@ class Asteroid implements Particle{
     // TODO: implement updateDirection
   }
 
+  @override
+  void draw() {
+    // TODO: implement draw
+  }
+
 }

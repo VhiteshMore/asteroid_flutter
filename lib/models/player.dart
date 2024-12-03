@@ -23,12 +23,12 @@ class Player implements Particle {
   Player({
     required this.height,
     required this.width,
-    required this.posX,
-    required this.posY,
-    required this.direction,
-    required this.speed,
-    required this.acceleration,
-    required this.score,
+    this.posX = 0,
+    this.posY = 0,
+    this.direction = 0,
+    this.speed = 0,
+    this.acceleration = 0,
+    this.score = 0,
     List<WeaponProjectile>? projectiles,
   }) : projectiles = projectiles ?? [];
 
@@ -67,6 +67,11 @@ class Player implements Particle {
 
   set score(double? _score) {
     score = _score;
+  }
+
+  @override
+  void draw() {
+    // TODO: implement draw
   }
 
 }

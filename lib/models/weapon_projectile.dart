@@ -50,6 +50,11 @@ class WeaponProjectile extends Particle {
     // TODO: implement updateDirection
   }
 
+  @override
+  void draw() {
+    // TODO: implement draw
+  }
+
 
 
 }

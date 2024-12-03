@@ -11,4 +11,6 @@ abstract class Particle {
 
   void updateDirection();
 
+  void draw();
+
 }

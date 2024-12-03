@@ -1,3 +1,5 @@
+import 'package:asteroid_flutter/models/player.dart';
+import 'package:asteroid_flutter/ui/feature/game/bloc/game_bloc.dart';
 import 'package:flutter/material.dart';
 
 class GameScreen extends StatefulWidget {
@@ -14,6 +16,14 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
 
   final ValueNotifier<Offset> _offsetNotifier = ValueNotifier(Offset.zero);
 
+  late final GameBloc gameBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    gameBloc = GameBloc(player: Player(height: 50, width: 50,));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,15 +39,21 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
               _offsetNotifier.value = event.position;
             },
           ),
+          //Asteroid Custom Painter Layer
           ValueListenableBuilder(
-            valueListenable: _offsetNotifier, builder: (context, value, child) {
-            return Positioned(
-                left: value.dx,
-                top: value.dy,
-                child: Container(
-                    height: 21, width: 21, color: Colors.white,));
-          },),
-
+            valueListenable: _offsetNotifier,
+            builder: (context, value, child) {
+              return Positioned(
+                  left: value.dx,
+                  top: value.dy,
+                  child: Container(
+                    height: 21,
+                    width: 21,
+                    color: Colors.white,
+                  ),
+              );
+            },
+          ),
         ],
       ),
     );
