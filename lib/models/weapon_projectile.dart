@@ -3,51 +3,37 @@ import 'package:asteroid_flutter/models/particle.dart';
 class WeaponProjectile extends Particle {
 
   @override
-  final double posX;
+  double? posX;
   @override
-  final double posY;
+  double? posY;
   //Convert to radian or degrees wrt to reference (0,0) and +,- signs
   @override
-  final double direction;
+  double? direction;
   @override
-  final double speed;
-  @override
-  double? acceleration;
+  double? speed;
 
   WeaponProjectile({
     required this.posX,
     required this.posY,
-    required this.direction,
-    required this.speed,
-  });
+    this.direction = 0,
+    this.speed = 0,
+  }) : super(
+            acceleration: 0,
+            posX: posX,
+            posY: posY,
+            direction: direction,
+            speed: speed);
+
+  //change or update direction
+  @override
+  void updateDirection({required double direction}) {
+    // TODO: implement updateDirection
+  }
 
   //move or update
   @override
-  void updatePosition() {}
-
-  @override
-  set direction(double? _direction) {
-    direction = _direction;
-  }
-
-  @override
-  set posX(double? _posX) {
-    posX = _posX;
-  }
-
-  @override
-  set posY(double? _posY) {
-    posY = _posY;
-  }
-
-  @override
-  set speed(double? _speed) {
-    speed = _speed;
-  }
-
-  @override
-  void updateDirection() {
-    // TODO: implement updateDirection
+  void updatePosition({required double dx, required double dy}) {
+    // TODO: implement updatePosition
   }
 
 }

@@ -15,57 +15,45 @@ enum AsteroidShape {
 
 }
 
-class Asteroid implements Particle{
+class Asteroid extends Particle {
 
   final AsteroidShape shape;
   @override
-  final double posX;
+  double? posX;
   @override
-  final double posY;
-  //Convert to radian or degrees wrt to reference (0,0) and +,- signs
+  double? posY;
   @override
-  final double direction;
+  double? direction;
   @override
-  final double speed;
-
-  Asteroid({
-    required this.shape,
-    required this.posX,
-    required this.posY,
-    required this.direction,
-    required this.speed,
-  });
-
-  //move or update
-  @override
-  void updatePosition() {}
-
+  double? speed;
   @override
   double? acceleration;
 
-  @override
-  set direction(double? _direction) {
-    direction = _direction;
-  }
+  Asteroid({
+    required this.shape,
+    this.posX,
+    this.posY,
+    this.speed ,
+    this.direction,
+    this.acceleration,
+  }) : super(
+          acceleration: acceleration,
+          posX: posX,
+          posY: posY,
+          direction: direction,
+          speed: speed,
+        );
 
   @override
-  set posX(double? _posX) {
-    posX = _posX;
-  }
-
-  @override
-  set posY(double? _posY) {
-    posY = _posY;
-  }
-
-  @override
-  set speed(double? _speed) {
-    speed = _speed;
-  }
-
-  @override
-  void updateDirection() {
+  void updateDirection({required double direction}) {
     // TODO: implement updateDirection
   }
+
+  @override
+  void updatePosition({required double dx, required double dy}) {
+    // TODO: implement updatePosition
+  }
+
+
 
 }

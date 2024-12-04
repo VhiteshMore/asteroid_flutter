@@ -1,22 +1,24 @@
 import 'package:asteroid_flutter/models/particle.dart';
 import 'package:asteroid_flutter/models/weapon_projectile.dart';
 
-class Player implements Particle {
+class Player extends Particle {
 
   final double height;
   final double width;
+
   @override
-  final double posX;
+  double? posX;
   @override
-  final double posY;
+  double? posY;
   //Convert to radian or degrees wrt to reference (0,0) and +,- signs
   @override
-  final double direction;
+  double? direction;
   @override
-  final double speed;
+  double? speed;
   @override
-  final double acceleration;
-  final double score;
+  double? acceleration;
+
+  double score;
 
   List<WeaponProjectile> projectiles;
 
@@ -25,48 +27,30 @@ class Player implements Particle {
     required this.width,
     this.posX = 0,
     this.posY = 0,
-    this.direction = 0,
     this.speed = 0,
+    this.direction = 0,
     this.acceleration = 0,
     this.score = 0,
     List<WeaponProjectile>? projectiles,
-  }) : projectiles = projectiles ?? [];
-
-  //move or update
-  @override
-  void updatePosition() {}
+  })  : projectiles = projectiles ?? [],
+        super(
+          acceleration: 0,
+          posX: posX,
+          posY: posY,
+          direction: direction,
+          speed: speed,
+        );
 
   //change or update direction
   @override
-  void updateDirection() {}
-
-  @override
-  set acceleration(double? _acceleration) {
-    acceleration = _acceleration;
+  void updateDirection({required double direction}) {
+    // TODO: implement updateDirection
   }
 
+  //move or update
   @override
-  set direction(double? _direction) {
-    direction = _direction;
-  }
-
-  @override
-  set posX(double? _posX) {
-    posX = _posX;
-  }
-
-  @override
-  set posY(double? _posY) {
-    posY = _posY;
-  }
-
-  @override
-  set speed(double? _speed) {
-    speed = _speed;
-  }
-
-  set score(double? _score) {
-    score = _score;
+  void updatePosition({required double dx, required double dy}) {
+    // TODO: implement updatePosition
   }
 
 }
