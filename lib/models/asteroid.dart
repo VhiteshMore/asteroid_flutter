@@ -44,16 +44,4 @@ class Asteroid extends Particle {
           speed: speed,
         );
 
-  @override
-  void updateDirection({required double direction}) {
-    // TODO: implement updateDirection
-  }
-
-  @override
-  void updatePosition({required double dx, required double dy}) {
-    // TODO: implement updatePosition
-  }
-
-
-
 }

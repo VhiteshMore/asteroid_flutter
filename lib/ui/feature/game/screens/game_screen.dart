@@ -22,6 +22,7 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
   void initState() {
     super.initState();
     gameBloc = GameBloc(player: Player(height: 50, width: 50,));
+    gameBloc.startGame();
   }
 
   @override

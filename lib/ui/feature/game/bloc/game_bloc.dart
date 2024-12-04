@@ -1,29 +1,41 @@
 import 'package:asteroid_flutter/models/asteroid.dart';
 import 'package:asteroid_flutter/models/game.dart';
 import 'package:asteroid_flutter/models/particle.dart';
-import 'package:asteroid_flutter/ui/feature/game/bloc/game_state.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
 
 import '../../../../models/player.dart';
 import '../../../../models/weapon_projectile.dart';
+import '../../../../utils/game_ticker.dart';
 
-class GameBloc extends TickerProvider {
+class GameBloc extends ChangeNotifier {
 
   final Player player;
-  late final GameState _gameState;
+  late final GameTicker _gameTicker;
+  List<Asteroid> _asteroids = [];
 
-  GameBloc({required this.player}) {
-    initialize();
+  bool _gameStarted = false;
+
+  GameBloc({required this.player});
+
+  _startTicker() {
+    _gameTicker = GameTicker();
+    _gameTicker.run((dt, timeCorrection) {
+      debugPrint('_gameTicker Callback: dt: $dt; timeCorrection: $timeCorrection');
+    },);
   }
 
-  initialize () {
-    _gameState = GameState();
+  startGame() {
+    _gameStarted = true;
+    _startTicker();
+    notifyListeners();
   }
 
-  @override
-  Ticker createTicker(TickerCallback onTick) {
-    // TODO: implement createTicker
-    throw UnimplementedError();
+  List<Asteroid> get asteroids => _asteroids;
+
+  set asteroids(List<Asteroid> asteroids) {
+    _asteroids = asteroids;
+    notifyListeners();
   }
 
 }

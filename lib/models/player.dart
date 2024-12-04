@@ -42,15 +42,15 @@ class Player extends Particle {
         );
 
   //change or update direction
-  @override
-  void updateDirection({required double direction}) {
-    // TODO: implement updateDirection
-  }
+  // @override
+  // void updateDirection({required double direction}) {
+  //   // TODO: implement updateDirection
+  // }
 
   //move or update
-  @override
-  void updatePosition({required double dx, required double dy}) {
-    // TODO: implement updatePosition
-  }
+  // @override
+  // void updatePosition({required double dx, required double dy}) {
+  //   // TODO: implement updatePosition
+  // }
 
 }

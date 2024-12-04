@@ -12,9 +12,9 @@ abstract class Particle {
 
   Particle({this.offset, this.posX, this.posY, this.direction, this.acceleration, this.speed});
 
-  void updatePosition({required double dx, required double dy});
-
-  void updateDirection({required double direction});
+  // void updatePosition({required double dx, required double dy});
+  //
+  // void updateDirection({required double direction});
 
 }
 

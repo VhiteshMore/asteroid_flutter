@@ -24,16 +24,4 @@ class WeaponProjectile extends Particle {
             direction: direction,
             speed: speed);
 
-  //change or update direction
-  @override
-  void updateDirection({required double direction}) {
-    // TODO: implement updateDirection
-  }
-
-  //move or update
-  @override
-  void updatePosition({required double dx, required double dy}) {
-    // TODO: implement updatePosition
-  }
-
 }
