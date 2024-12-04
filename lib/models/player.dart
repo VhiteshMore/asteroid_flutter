@@ -69,9 +69,4 @@ class Player implements Particle {
     score = _score;
   }
 
-  @override
-  void draw() {
-    // TODO: implement draw
-  }
-
 }
