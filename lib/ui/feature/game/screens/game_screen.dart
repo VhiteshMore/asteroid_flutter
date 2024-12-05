@@ -36,6 +36,7 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
       child: Stack(
         children: [
           MouseRegion(
+            cursor: SystemMouseCursors.none,
             onHover: (event) {
               _offsetNotifier.value = event.position;
             },
@@ -51,6 +52,11 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
                     height: 21,
                     width: 21,
                     color: Colors.white,
+                    child: GestureDetector(
+                      onTap: () {
+                        debugPrint('Pew pew');
+                      },
+                    ),
                   ),
               );
             },

@@ -21,7 +21,7 @@ class GameBloc extends ChangeNotifier {
   _startTicker() {
     _gameTicker = GameTicker();
     _gameTicker.run((dt, timeCorrection) {
-      debugPrint('_gameTicker Callback: dt: $dt; timeCorrection: $timeCorrection');
+      // debugPrint('_gameTicker Callback: dt: $dt; timeCorrection: $timeCorrection');
     },);
   }
 
