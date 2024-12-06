@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:asteroid_flutter/models/particle.dart';
+import 'package:flutter/material.dart';
 
 enum AsteroidShape {
 
@@ -28,9 +31,11 @@ class Asteroid extends Particle {
   double? speed;
   @override
   double? acceleration;
+  final Color color;
 
   Asteroid({
     required this.shape,
+    this.color = Colors.white,
     this.posX,
     this.posY,
     this.speed ,
