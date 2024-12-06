@@ -18,6 +18,7 @@ class GameUtils {
         posX: asft.dx,
         posY: asft.dy,
         direction: asft.direction,
+        acceleration: 0,
       ));
     }
     return particles;
