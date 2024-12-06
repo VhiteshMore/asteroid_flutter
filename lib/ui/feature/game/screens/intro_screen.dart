@@ -1,4 +1,5 @@
 import 'package:asteroid_flutter/ui/feature/game/screens/game_screen.dart';
+import 'package:asteroid_flutter/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +37,7 @@ class _IntroScreenState extends State<IntroScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
                     child: const Text(
-                      'Start Game',
+                      AppStrings.startGame,
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,

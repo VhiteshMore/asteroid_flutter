@@ -31,6 +31,8 @@ class GameBloc extends ChangeNotifier {
     notifyListeners();
   }
 
+
+
   List<Asteroid> get asteroids => _asteroids;
 
   set asteroids(List<Asteroid> asteroids) {
