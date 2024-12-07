@@ -68,6 +68,12 @@ class GameUtils {
     return direction;
   }
 
+  static double getPointerDirection({required Offset p1, required Offset p2}) {
+    double rotation = 0;
+    rotation = math.atan2(p2.dy - p1.dy, p2.dx - p1.dx);
+    return rotation;
+  }
+
   static double randomSign() {
     var rng = math.Random();
     return rng.nextBool() ? 1 : -1;
