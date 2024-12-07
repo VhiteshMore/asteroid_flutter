@@ -1,2 +1,3 @@
 -> Generate random particles spawning from the edge of game screen with direction inwards of the game screen.
+ - Following details of asteroid are configurable to calculate score: Number of particles, Average Velocity and Starting position
 -> Move cursor with change to direction adjust models with respect to fields that'll will change or not change.
