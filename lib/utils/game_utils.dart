@@ -58,8 +58,13 @@ class GameUtils {
     return generatedOffset;
   }
 
-  static getDirection() {
+  //Get Random Direction with +-(45 degree)tolerance with respect to the line from offset point to center of game screen
+  static double getDirection({required Offset center, required Offset pOfst,double toleranceAngle = 0.523599}) {
     double direction = 0;
+    double calculatedDirection = math.atan2(center.dy - pOfst.dy, center.dx - pOfst.dx);
+    double minToleranceAngle = calculatedDirection - toleranceAngle;
+    double maxToleranceAngle = toleranceAngle + calculatedDirection;
+    direction = minToleranceAngle + (math.Random().nextDouble() * (maxToleranceAngle.abs() - minToleranceAngle.abs()));
     return direction;
   }
 
