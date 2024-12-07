@@ -29,26 +29,35 @@ class GameUtils {
   static Offset generatePeripheralOffset({required double height, required double width, int initialFrameOffsetLimit = 10 }) {
     final _rng = math.Random();
     Offset generatedOffset = Offset.zero;
-    double leftPeripheralX = -(_rng.nextDouble() * initialFrameOffsetLimit);
-    double topPeripheralY = -(_rng.nextDouble() * initialFrameOffsetLimit);
-    double rightPeripheralX = (_rng.nextDouble() * initialFrameOffsetLimit) + width;
-    double bottomPeripheralY = (_rng.nextDouble() * initialFrameOffsetLimit) + height;
+    double pseudoRng = _rng.nextDouble();
+    double pseudoOffset = pseudoRng * initialFrameOffsetLimit;
+
+    double leftPeripheralX = -pseudoOffset;
+    double topPeripheralY = -pseudoOffset;
+    double rightPeripheralX = pseudoOffset + width;
+    double bottomPeripheralY = pseudoOffset + height;
+
     //Generate Peripheral LTRB (x,y) for the game board with +-{initialFrameOffsetLimit}
-    double innerLeftX = leftPeripheralX + (_rng.nextDouble() * initialFrameOffsetLimit);
-    double innerRightX = rightPeripheralX - ((_rng.nextDouble() * initialFrameOffsetLimit));
-    double innerTopY = topPeripheralY + (_rng.nextDouble() * initialFrameOffsetLimit);
-    double innerBottomY = bottomPeripheralY - ((_rng.nextDouble() * initialFrameOffsetLimit));
+    double innerLeftX =  pseudoOffset;
+    double innerRightX = rightPeripheralX - pseudoOffset;
+    double innerTopY =  pseudoOffset;
+    double innerBottomY = bottomPeripheralY - pseudoOffset;
+
     double rngSign = randomSign();
-    double peripheralLeftX = (leftPeripheralX + _rng.nextDouble() * (innerLeftX - leftPeripheralX));
-    double peripheralTopY = (topPeripheralY + _rng.nextDouble() * (innerTopY - topPeripheralY));
-    double peripheralRightX = (innerRightX + _rng.nextDouble() * (rightPeripheralX - innerRightX));
-    double peripheralBottomY = (innerBottomY + _rng.nextDouble() * (bottomPeripheralY - innerBottomY));
+    double peripheralLeftX = (leftPeripheralX + (pseudoRng * (innerLeftX - leftPeripheralX.abs())));
+    double peripheralTopY = (topPeripheralY + pseudoRng * (innerTopY - topPeripheralY.abs()));
+    double peripheralRightX = (innerRightX + pseudoRng * (rightPeripheralX - innerRightX));
+    double peripheralBottomY = (innerBottomY + pseudoRng * (bottomPeripheralY - innerBottomY));
+
+    double minMaxYAxis = (topPeripheralY + _rng.nextDouble() * (bottomPeripheralY - topPeripheralY));
+    double minMaxXAxis = (leftPeripheralX + _rng.nextDouble() * (rightPeripheralX - leftPeripheralX));
 
     if (rngSign > 0) {
-      generatedOffset = Offset(randomSign() < 0 ? peripheralLeftX : peripheralRightX, (topPeripheralY + _rng.nextDouble() * (bottomPeripheralY - topPeripheralY)));
+      generatedOffset = Offset(randomSign() < 0 ? peripheralLeftX : peripheralRightX, (topPeripheralY + _rng.nextDouble() * (bottomPeripheralY - topPeripheralY.abs())));
     } else {
-      generatedOffset = Offset((leftPeripheralX + _rng.nextDouble() * (rightPeripheralX - leftPeripheralX)), randomSign() < 0 ? peripheralTopY : peripheralBottomY);
+      generatedOffset = Offset((leftPeripheralX + _rng.nextDouble() * (rightPeripheralX - leftPeripheralX.abs())), randomSign() < 0 ? peripheralTopY : peripheralBottomY);
     }
+    // generatedOffset = Offset(minMaxXAxis, minMaxYAxis);
     return generatedOffset;
   }
 
