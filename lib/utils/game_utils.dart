@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 class GameUtils {
 
+  static final math.Random _rng = math.Random();
+
   static List<Particle> generateAsteroids({required double height, required double width, int minLimit = 10, int maxLimit = 10, AsteroidShape shape = AsteroidShape.circle,}) {
     final rng = math.Random();
     List<Particle> particles = [];
