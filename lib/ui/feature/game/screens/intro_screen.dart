@@ -1,5 +1,5 @@
 import 'package:asteroid_flutter/ui/feature/game/screens/game_screen.dart';
-import 'package:asteroid_flutter/utils/constants.dart';
+import 'package:asteroid_flutter/constants/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
