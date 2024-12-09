@@ -73,7 +73,7 @@ class GameUtils {
     double angleInRadians = 0;
     if (p2.dx < p1.dx) {
       if (p2.dy < p1.dy) {
-        if (p2.dx - p1.dx < 0 && p2.dx - p1.dx >= -1.5) {
+        if (p2.dx - p1.dx < 0 && p2.dx - p1.dx >= -4.5) {
           angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
         } else {
           angleInRadians = -math.atan2(p1.dy - p2.dy, p1.dx - p2.dx);
@@ -83,13 +83,13 @@ class GameUtils {
       }
     } else {
       if (p2.dy < p1.dy) {
-        if (p2.dx - p1.dx <= 1.5 && p2.dx - p1.dx >= 0) {
+        if (p2.dx - p1.dx <= 4.5 && p2.dx - p1.dx >= 0) {
           angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
         } else {
           angleInRadians = -math.atan2(p2.dy - p1.dy, p2.dx - p1.dx);
         }
       } else {
-        if (p2.dy - p1.dy <= 1.5 && p2.dy - p1.dy >= -1.5) {
+        if (p2.dy - p1.dy <= 4.5 && p2.dy - p1.dy >= -4.5) {
           angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
         } else {
           angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
