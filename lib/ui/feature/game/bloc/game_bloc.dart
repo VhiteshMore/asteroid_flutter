@@ -22,6 +22,7 @@ class GameBloc extends ChangeNotifier {
     _gameTicker = GameTicker();
     _gameTicker.run((dt, timeCorrection) {
       // debugPrint('_gameTicker Callback: dt: $dt; timeCorrection: $timeCorrection');
+      _update();
     },);
   }
 
@@ -31,7 +32,12 @@ class GameBloc extends ChangeNotifier {
     notifyListeners();
   }
 
+  _gameOver() {
+    _gameTicker.stop();
+    notifyListeners();
+  }
 
+  void _update() => notifyListeners();
 
   List<Asteroid> get asteroids => _asteroids;
 
