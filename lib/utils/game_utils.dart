@@ -68,20 +68,32 @@ class GameUtils {
     return direction;
   }
 
-  static getPointerDirection({required Offset p1, required Offset p2}) {
+  static double getPointerDirection({required Offset p1, required Offset p2}) {
     double rotation = 0;
     double angleInRadians = 0;
     if (p2.dx < p1.dx) {
       if (p2.dy < p1.dy) {
-        angleInRadians = -math.atan2(p1.dy - p2.dy, p1.dx - p2.dx);
+        if (p2.dx - p1.dx < 0 && p2.dx - p1.dx >= -1.5) {
+          angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
+        } else {
+          angleInRadians = -math.atan2(p1.dy - p2.dy, p1.dx - p2.dx);
+        }
       } else {
         angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
       }
     } else {
       if (p2.dy < p1.dy) {
-        angleInRadians = -math.atan2(p2.dy - p1.dy, p2.dx - p1.dx);
+        if (p2.dx - p1.dx <= 1.5 && p2.dx - p1.dx >= 0) {
+          angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
+        } else {
+          angleInRadians = -math.atan2(p2.dy - p1.dy, p2.dx - p1.dx);
+        }
       } else {
-        angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
+        if (p2.dy - p1.dy <= 1.5 && p2.dy - p1.dy >= -1.5) {
+          angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
+        } else {
+          angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
+        }
       }
     }
     rotation = (angleInRadians + (2 * math.pi)) % (2 * math.pi);
