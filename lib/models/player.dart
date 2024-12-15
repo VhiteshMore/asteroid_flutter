@@ -53,4 +53,32 @@ class Player extends Particle {
   //   // TODO: implement updatePosition
   // }
 
+  @override
+  bool operator == (Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Player &&
+        other.shape == shape &&
+        other.height == height &&
+        other.width == width &&
+        other.posX == posX &&
+        other.posY == posY &&
+        other.speed == speed &&
+        other.direction == direction &&
+        other.acceleration == acceleration &&
+        other.score == score;
+  }
+
+  @override
+  int get hashCode =>
+      shape.hashCode ^
+      height.hashCode ^
+      width.hashCode ^
+      posX.hashCode ^
+      posY.hashCode ^
+      speed.hashCode ^
+      direction.hashCode ^
+      acceleration.hashCode ^
+      score.hashCode;
+
 }

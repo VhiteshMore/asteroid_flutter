@@ -30,4 +30,26 @@ class WeaponProjectile extends Particle {
             shape: shape,
   );
 
+  @override
+  bool operator == (Object other) {
+    if (identical(this, other)) return true;
+
+    return other is WeaponProjectile &&
+        other.shape == shape &&
+        other.posX == posX &&
+        other.posY == posY &&
+        other.speed == speed &&
+        other.direction == direction &&
+        other.acceleration == acceleration;
+  }
+
+  @override
+  int get hashCode =>
+      shape.hashCode ^
+      posX.hashCode ^
+      posY.hashCode ^
+      speed.hashCode ^
+      direction.hashCode ^
+      acceleration.hashCode;
+
 }
