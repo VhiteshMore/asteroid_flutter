@@ -1,4 +1,5 @@
 import 'package:asteroid_flutter/models/player.dart';
+import 'package:asteroid_flutter/models/shape.dart';
 import 'package:asteroid_flutter/ui/feature/game/bloc/game_bloc.dart';
 import 'package:asteroid_flutter/ui/widgets/pointer_widget.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-    _gameBloc = GameBloc(player: Player(height: 50, width: 50,));
+    _gameBloc = GameBloc(player: Player(height: 50, width: 50, shape: Polygon(vertices: [])));
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _gameBloc.startGame();
     },);

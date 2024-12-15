@@ -1,4 +1,5 @@
 import 'package:asteroid_flutter/models/particle.dart';
+import 'package:asteroid_flutter/models/shape.dart';
 import 'package:asteroid_flutter/models/weapon_projectile.dart';
 
 class Player extends Particle {
@@ -17,6 +18,8 @@ class Player extends Particle {
   double? speed;
   @override
   double? acceleration;
+  @override
+  final Shape shape;
 
   double score;
 
@@ -30,6 +33,7 @@ class Player extends Particle {
     this.speed = 0,
     this.direction = 0,
     this.acceleration = 0,
+    required this.shape,
     this.score = 0,
     List<WeaponProjectile>? projectiles,
   })  : projectiles = projectiles ?? [],
@@ -39,6 +43,7 @@ class Player extends Particle {
           posY: posY,
           direction: direction,
           speed: speed,
+          shape: shape,
         );
 
   //change or update direction

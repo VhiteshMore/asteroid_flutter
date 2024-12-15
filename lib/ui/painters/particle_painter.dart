@@ -23,7 +23,7 @@ class ParticlePainter extends CustomPainter {
     for (int index = 0; index < projectiles.length; index++) {
       canvas.drawCircle(
         Offset(projectiles[index].posX!, projectiles[index].posY!),
-        5,
+        (projectiles[index].shape as Circle).radius,
         Paint()..color = Colors.white,
       );
     }

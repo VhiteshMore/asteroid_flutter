@@ -4,6 +4,7 @@ import 'package:asteroid_flutter/models/index.dart';
 import 'package:asteroid_flutter/utils/index.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../models/shape.dart';
 import '../../../../utils/player_trajectory.dart';
 
 class GameBloc extends ChangeNotifier {
@@ -142,19 +143,15 @@ class GameBloc extends ChangeNotifier {
   //Detect collision between players and asteroids based on the detection radius
   // around the player.
   void _detectPlayerAsteroidCollision() {
-    _asteroids.sort((a, b) => a.shape.left(Offset(a.posX!, a.posY!)).compareTo(b.shape.left(Offset(b.posX!, b.posY!))));
+    // _asteroids.sort((a, b) => a.shape.left(Offset(a.posX!, a.posY!)).compareTo(b.shape.left(Offset(b.posX!, b.posY!))));
     for (int i = 0; i < _asteroids.length; i++) {
       final asteroid1 = _asteroids[i];
-      for (int j = i + 1; j< _asteroids.length; j++) {
-        Asteroid asteroid2 = _asteroids[j];
 
-        if (asteroid2.shape.left(Offset(asteroid2.posX!, asteroid2.posY!)) >
-            asteroid1.shape.right(Offset(asteroid1.posX!, asteroid1.posY!))) break;
-
-        //intersection
-        if (GameUtils.intersects(asteroid1, asteroid2)) {
-          _gameOver();
-        }
+      // if (_player.shape.left(Offset(_player.posX!, _player.posY!)) >
+      //     asteroid1.shape.right(Offset(asteroid1.posX!, asteroid1.posY!))) break;
+      //intersection
+      if (GameUtils.intersects(_player, asteroid1)) {
+        _gameOver();
       }
     }
 
@@ -162,7 +159,30 @@ class GameBloc extends ChangeNotifier {
 
   //Detect collision between Asteroids and Projectiles
   void _detectAsteroidProjectileCollision() {
+    //Sorting
+    List<EdgeSort<Particle>> objects = [];
+    for (int i = 0; i < (_asteroids.length); i++) {
+      objects.addAll([
+        EdgeSort(object: _asteroids[i], x: _asteroids[i].shape.left(Offset(_asteroids[i].posX!, _asteroids[i].posY!)), isLeft: true),
+        EdgeSort(object: _asteroids[i], x: _asteroids[i].shape.right(Offset(_asteroids[i].posX!, _asteroids[i].posY!)), isLeft: false),
+      ]);
+    }
+    for (int i = 0; i < (weaponProjectiles.length); i++) {
+      objects.addAll([
+        EdgeSort(object: weaponProjectiles[i], x: weaponProjectiles[i].shape!.left(Offset(weaponProjectiles[i].posX!, weaponProjectiles[i].posY!)), isLeft: true),
+        EdgeSort(object: weaponProjectiles[i], x: weaponProjectiles[i].shape!.right(Offset(weaponProjectiles[i].posX!, weaponProjectiles[i].posY!)), isLeft: false),
+      ]);
+    }
+    objects.sort((a, b) => a.x.compareTo(b.x));
 
+    for (int i = 0; i < objects.length; i++) {
+      //Sweep and prune based on runtime types of List<EdgeSort<Particle>> EdgeSort > object {Asteroid or WeaponProjectile}
+      final asteroid1 = objects[i];
+
+      for (int j = 0; j < objects.length; j ++) {
+
+      }
+    }
   }
 
   //Add projectile based on player's position & direction
@@ -173,6 +193,7 @@ class GameBloc extends ChangeNotifier {
       posY: playerPosY(),
       direction: _player.direction,
       speed: 100,
+      shape: Circle(radius: 5),
     ));
   }
 
