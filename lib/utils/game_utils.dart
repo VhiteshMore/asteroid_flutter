@@ -4,30 +4,40 @@ import 'package:asteroid_flutter/models/asteroid.dart';
 import 'package:asteroid_flutter/models/particle.dart';
 import 'package:flutter/material.dart';
 
+import '../models/shape.dart';
+
 class GameUtils {
 
   static final math.Random _rng = math.Random();
 
-  static List<Particle> generateAsteroids({required double height, required double width, int minLimit = 10, int maxLimit = 10, AsteroidShape shape = AsteroidShape.circle,}) {
-    final rng = math.Random();
-    List<Particle> particles = [];
+  static List<Asteroid> generateAsteroids(
+      {required double height,
+      required double width,
+      required Offset center,
+      double? speed,
+      int minLimit = 10,
+      int maxLimit = 10,
+      AsteroidShape shape = AsteroidShape.circle,
+      double? initialFrameOffsetLimit}) {
+    final rng = _rng;
+    List<Asteroid> particles = [];
     for (int i = 0; i < maxLimit; i++) {
-      final asft = generatePeripheralOffset(height: height, width: width, initialFrameOffsetLimit: 10);
+      final asft = generatePeripheralOffset(height: height, width: width, initialFrameOffsetLimit: initialFrameOffsetLimit ?? 40);
       particles.add(Asteroid(
         color: Colors.primaries[rng.nextInt(Colors.primaries.length)],
-        shape: shape,
-        speed: 10,
+        ///Todo: Custom Shapes
+        shape: Circle(radius: 50),
+        speed: speed ?? 10,
         posX: asft.dx,
         posY: asft.dy,
-        direction: asft.direction,
+        direction: getDirection(center: center, pOfst: asft),
         acceleration: 0,
       ));
     }
     return particles;
   }
 
-  static Offset generatePeripheralOffset({required double height, required double width, int initialFrameOffsetLimit = 10 }) {
-    final _rng = math.Random();
+  static Offset generatePeripheralOffset({required double height, required double width, double initialFrameOffsetLimit = 10 }) {
     Offset generatedOffset = Offset.zero;
     double pseudoRng = _rng.nextDouble();
     double pseudoOffset = pseudoRng * initialFrameOffsetLimit;
@@ -64,7 +74,7 @@ class GameUtils {
     double calculatedDirection = math.atan2(center.dy - pOfst.dy, center.dx - pOfst.dx);
     double minToleranceAngle = calculatedDirection - toleranceAngle;
     double maxToleranceAngle = toleranceAngle + calculatedDirection;
-    direction = minToleranceAngle + (math.Random().nextDouble() * (maxToleranceAngle.abs() - minToleranceAngle.abs()));
+    direction = minToleranceAngle + (_rng.nextDouble() * (maxToleranceAngle.abs() - minToleranceAngle.abs()));
     return direction;
   }
 
@@ -73,23 +83,26 @@ class GameUtils {
     double angleInRadians = 0;
     if (p2.dx < p1.dx) {
       if (p2.dy < p1.dy) {
-        if (p2.dx - p1.dx < 0 && p2.dx - p1.dx >= -4.5) {
+        if (p2.dx - p1.dx < 0 && p2.dx - p1.dx >= -20.5) {
           angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
         } else {
           angleInRadians = -math.atan2(p1.dy - p2.dy, p1.dx - p2.dx);
         }
       } else {
+        // if () {
+        //
+        // }
         angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
       }
     } else {
       if (p2.dy < p1.dy) {
-        if (p2.dx - p1.dx <= 4.5 && p2.dx - p1.dx >= 0) {
+        if (p2.dx - p1.dx <= 20.5 && p2.dx - p1.dx >= 0) {
           angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
         } else {
           angleInRadians = -math.atan2(p2.dy - p1.dy, p2.dx - p1.dx);
         }
       } else {
-        if (p2.dy - p1.dy <= 4.5 && p2.dy - p1.dy >= -4.5) {
+        if (p2.dy - p1.dy <= 20.5 && p2.dy - p1.dy >= -20.5) {
           angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
         } else {
           angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
@@ -101,8 +114,7 @@ class GameUtils {
   }
 
   static double randomSign() {
-    var rng = math.Random();
-    return rng.nextBool() ? 1 : -1;
+    return _rng.nextBool() ? 1 : -1;
   }
 
 }
