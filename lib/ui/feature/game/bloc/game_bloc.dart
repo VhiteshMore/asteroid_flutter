@@ -78,13 +78,7 @@ class GameBloc extends ChangeNotifier {
   //Initialize particles
   void _initializeParticles({int? asteroidCount, RenderBox? gameBox}) {
     final Size screenSize = gameBox!.size;
-    // debugPrint("screenSize(${screenSize.width}, ${screenSize.height})");
-    Offset center = Offset(
-        // gameBox.localToGlobal(Offset.zero).dx -
-            gameBox.size.width / 2,
-        // gameBox.localToGlobal(Offset.zero).dy -
-            gameBox.size.height / 2);
-    debugPrint("center: $center");
+    Offset center = Offset(gameBox.size.width / 2, gameBox.size.height / 2);
     _asteroids.addAll(GameUtils.generateAsteroids(
         height: screenSize.height,
         width: screenSize.width,
