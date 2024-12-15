@@ -1,4 +1,5 @@
 import 'package:asteroid_flutter/models/particle.dart';
+import 'package:asteroid_flutter/models/shape.dart';
 
 class WeaponProjectile extends Particle {
 
@@ -11,17 +12,22 @@ class WeaponProjectile extends Particle {
   double? direction;
   @override
   double? speed;
+  @override
+  Shape? shape;
 
   WeaponProjectile({
     required this.posX,
     required this.posY,
     this.direction = 0,
     this.speed = 0,
+    this.shape,
   }) : super(
             acceleration: 0,
             posX: posX,
             posY: posY,
             direction: direction,
-            speed: speed);
+            speed: speed,
+            shape: shape,
+  );
 
 }

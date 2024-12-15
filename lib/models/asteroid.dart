@@ -38,6 +38,7 @@ enum AsteroidShape {
 
 class Asteroid extends Particle {
 
+  @override
   final Shape shape;
   @override
   double? posX;
@@ -67,6 +68,7 @@ class Asteroid extends Particle {
           posY: posY,
           direction: direction,
           speed: speed,
+          shape: shape,
         );
 
 }

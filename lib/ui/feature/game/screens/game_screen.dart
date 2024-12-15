@@ -36,51 +36,47 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
       decoration: const BoxDecoration(
         color: Colors.black,
       ),
-      child: Listener(
-        onPointerHover: (event) {
+      child: MouseRegion(
+        cursor: SystemMouseCursors.none,
+        onHover: (event) {
           _gameBloc.updatePlayerPosition(pos: event.position);
         },
-        child: MouseRegion(
-          cursor: SystemMouseCursors.none,
-          // onHover: (event) {
-          //   _gameBloc.updatePlayerPosition(pos: event.position);
-          // },
-          child: AnimatedBuilder(
-            animation: _gameBloc,
-            builder: (context, child) {
-              return Stack(
-                fit: StackFit.expand,
-                children: [
-                  //Asteroid Custom Painter Layer
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white)
-                    ),
-                    child: CustomPaint(
-                      key: _gameBloc.gameScreenKey,
-                      painter: ParticlePainter(
-                        asteroid: _gameBloc.asteroids,
-                        projectiles: _gameBloc.weaponProjectiles,
-                      ),
+        child: AnimatedBuilder(
+          animation: _gameBloc,
+          builder: (context, child) {
+            return Stack(
+              fit: StackFit.expand,
+              children: [
+                //Asteroid Custom Painter Layer
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white)
+                  ),
+                  child: CustomPaint(
+                    key: _gameBloc.gameScreenKey,
+                    painter: ParticlePainter(
+                      asteroid: _gameBloc.asteroids,
+                      projectiles: _gameBloc.weaponProjectiles,
                     ),
                   ),
-                  Positioned(
-                    left: _gameBloc.playerPosX(),
-                    top: _gameBloc.playerPosY(),
-                    child: GestureDetector(
-                      onTap: () {
-                        _gameBloc.addProjectile();
-                        debugPrint('Pew pew');
-                      },
-                      child: PointerWidget(
-                        angle: _gameBloc.pointerAngle,
-                      ),
+                ),
+                Positioned(
+                  left: _gameBloc.playerPosX(),
+                  top: _gameBloc.playerPosY(),
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      _gameBloc.addProjectile();
+                      debugPrint('Pew pew');
+                    },
+                    child: PointerWidget(
+                      angle: _gameBloc.pointerAngle,
                     ),
                   ),
-                ],
-              );
-            },
-          ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

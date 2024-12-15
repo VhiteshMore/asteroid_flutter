@@ -36,8 +36,9 @@ class GameBloc extends ChangeNotifier {
   }
 
   //Start Game
-  startGame() {
-    assert(gameScreenKey.currentContext != null, 'Please attach the gameScreenKey to your GameWidget where asteroids and projectiles will be displayed');
+  void startGame() {
+    assert(gameScreenKey.currentContext != null,
+        'Please attach the gameScreenKey to your GameWidget where asteroids and projectiles will be displayed');
     RenderBox gameBox = gameScreenKey.currentContext!.findRenderObject() as RenderBox;
     _gameStarted = true;
     _startTicker(gameBox);
@@ -46,22 +47,22 @@ class GameBloc extends ChangeNotifier {
   }
 
   //Pause the game
-  pause() {
+  void pause() {
     _gameTicker.pause();
   }
 
   //Resume the game
-  resume() {
+  void resume() {
     _gameTicker.resume();
   }
 
   //End the game
-  _gameOver() {
+  void _gameOver() {
     _gameTicker.stop();
     _update();
   }
 
-  _startTicker(RenderBox gameBox) {
+  void _startTicker(RenderBox gameBox) {
     _gameTicker = GameTicker();
     _gameTicker.run(
           (deltaTime, timeCorrection) {
@@ -100,13 +101,13 @@ class GameBloc extends ChangeNotifier {
       _asteroids[i].posX = dx;
       _asteroids[i].posY = dy;
     }
-    for (int i = 0; i < _player.projectiles.length; i++) {
-      double dx = _player.projectiles[i].posX! +
-          (_player.projectiles[i].speed! * math.cos(_player.projectiles[i].direction!)) * deltaTime;
-      double dy = _player.projectiles[i].posY! +
-          (_player.projectiles[i].speed! * math.sin(_player.projectiles[i].direction!)) * deltaTime;
-      _player.projectiles[i].posX = dx;
-      _player.projectiles[i].posY = dy;
+    for (int i = 0; i < weaponProjectiles.length; i++) {
+      double dx = weaponProjectiles[i].posX! +
+          (weaponProjectiles[i].speed! * math.cos(weaponProjectiles[i].direction!)) * deltaTime;
+      double dy = weaponProjectiles[i].posY! +
+          (weaponProjectiles[i].speed! * math.sin(weaponProjectiles[i].direction!)) * deltaTime;
+      weaponProjectiles[i].posX = dx;
+      weaponProjectiles[i].posY = dy;
     }
   }
 
@@ -116,7 +117,6 @@ class GameBloc extends ChangeNotifier {
     final Size gameScreenSize = gameBox!.size;
     final gameOffset = gameBox.localToGlobal(Offset.zero);
     int removedAsteroidCount = _minAsteroidCount - _asteroids.length;
-    debugPrint("currentAsteroidCount: ${_asteroids.length}");
     //Add new Asteroids
     if (removedAsteroidCount > 0) {
       _initializeParticles(gameBox: gameBox, asteroidCount: removedAsteroidCount);
@@ -127,7 +127,6 @@ class GameBloc extends ChangeNotifier {
           ((_asteroids[i].posY! < gameOffset.dy + gameScreenSize.height + _initialFrameOffsetLimit) &&
               (_asteroids[i].posY! > gameOffset.dy - _initialFrameOffsetLimit)))) {
         _asteroids.remove(_asteroids[i]);
-        debugPrint("currentAsteroidCount: ${_asteroids.length}");
       }
     }
     for (int i = 0; i < _player.projectiles.length; i++) {
@@ -143,6 +142,21 @@ class GameBloc extends ChangeNotifier {
   //Detect collision between players and asteroids based on the detection radius
   // around the player.
   void _detectPlayerAsteroidCollision() {
+    _asteroids.sort((a, b) => a.shape.left(Offset(a.posX!, a.posY!)).compareTo(b.shape.left(Offset(b.posX!, b.posY!))));
+    for (int i = 0; i < _asteroids.length; i++) {
+      final asteroid1 = _asteroids[i];
+      for (int j = i + 1; j< _asteroids.length; j++) {
+        Asteroid asteroid2 = _asteroids[j];
+
+        if (asteroid2.shape.left(Offset(asteroid2.posX!, asteroid2.posY!)) >
+            asteroid1.shape.right(Offset(asteroid1.posX!, asteroid1.posY!))) break;
+
+        //intersection
+        if (GameUtils.intersects(asteroid1, asteroid2)) {
+          _gameOver();
+        }
+      }
+    }
 
   }
 
@@ -153,9 +167,10 @@ class GameBloc extends ChangeNotifier {
 
   //Add projectile based on player's position & direction
   void addProjectile() {
+    debugPrint("_player posX:${_player.posX}, posY: ${_player.posY}");
     _player.projectiles.add(WeaponProjectile(
-      posX: _player.posX,
-      posY: _player.posX,
+      posX: playerPosX(),
+      posY: playerPosY(),
       direction: _player.direction,
       speed: 100,
     ));

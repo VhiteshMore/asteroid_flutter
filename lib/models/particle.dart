@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:asteroid_flutter/models/shape.dart';
+
 abstract class Particle {
 
   double? posX;
@@ -9,8 +11,9 @@ abstract class Particle {
   double? direction;
   double? speed;
   double? acceleration;
+  Shape? shape;
 
-  Particle({this.offset, this.posX, this.posY, this.direction, this.acceleration, this.speed});
+  Particle({this.offset, this.posX, this.posY, this.direction, this.acceleration, this.speed, this.shape});
 
   // void updatePosition({required double dx, required double dy});
   //

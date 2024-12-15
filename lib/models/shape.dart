@@ -2,10 +2,10 @@ import 'dart:ui';
 
 abstract class Shape {
 
-  double minX(Offset pos);
-  double maxX(Offset pos);
-  double minY(Offset pos);
-  double maxY(Offset pos);
+  double left(Offset pos);
+  double right(Offset pos);
+  double bottom(Offset pos);
+  double top(Offset pos);
 
 }
 
@@ -16,22 +16,22 @@ class Circle extends Shape {
   Circle({required this.radius});
 
   @override
-  double maxX(Offset pos) {
+  double right(Offset pos) {
     return pos.dx + radius * 2;
   }
 
   @override
-  double maxY(Offset pos) {
+  double bottom(Offset pos) {
     return pos.dy + radius * 2;
   }
 
   @override
-  double minX(Offset pos) {
+  double left(Offset pos) {
     return pos.dx;
   }
 
   @override
-  double minY(Offset pos) {
+  double top(Offset pos) {
     return pos.dy;
   }
 
@@ -45,25 +45,25 @@ class Rectangle extends Shape {
   Rectangle({required this.width, required this.height});
 
   @override
-  double maxX(Offset pos) {
+  double right(Offset pos) {
     // TODO: implement maxX
     throw UnimplementedError();
   }
 
   @override
-  double maxY(Offset pos) {
+  double bottom(Offset pos) {
     // TODO: implement maxY
     throw UnimplementedError();
   }
 
   @override
-  double minX(Offset pos) {
+  double left(Offset pos) {
     // TODO: implement minX
     throw UnimplementedError();
   }
 
   @override
-  double minY(Offset pos) {
+  double top(Offset pos) {
     // TODO: implement minY
     throw UnimplementedError();
   }
@@ -77,25 +77,25 @@ class Square extends Shape {
   Square({required this.side});
 
   @override
-  double maxX(Offset pos) {
+  double left(Offset pos) {
     // TODO: implement maxX
     throw UnimplementedError();
   }
 
   @override
-  double maxY(Offset pos) {
+  double top(Offset pos) {
     // TODO: implement maxY
     throw UnimplementedError();
   }
 
   @override
-  double minX(Offset pos) {
+  double right(Offset pos) {
     // TODO: implement minX
     throw UnimplementedError();
   }
 
   @override
-  double minY(Offset pos) {
+  double bottom(Offset pos) {
     // TODO: implement minY
     throw UnimplementedError();
   }
@@ -109,25 +109,25 @@ class Polygon extends Shape {
   Polygon({required this.vertices});
 
   @override
-  double maxX(Offset pos) {
+  double left(Offset pos) {
     // TODO: implement maxX
     throw UnimplementedError();
   }
 
   @override
-  double maxY(Offset pos) {
+  double top(Offset pos) {
     // TODO: implement maxY
     throw UnimplementedError();
   }
 
   @override
-  double minX(Offset pos) {
+  double right(Offset pos) {
     // TODO: implement minX
     throw UnimplementedError();
   }
 
   @override
-  double minY(Offset pos) {
+  double bottom(Offset pos) {
     // TODO: implement minY
     throw UnimplementedError();
   }
