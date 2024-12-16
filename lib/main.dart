@@ -1,3 +1,4 @@
+import 'package:asteroid_flutter/ui/feature/game/screens/game_over_screen.dart';
 import 'package:asteroid_flutter/ui/feature/game/screens/game_screen.dart';
 import 'package:asteroid_flutter/ui/feature/game/screens/intro_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,21 +23,15 @@ class MyApp extends StatelessWidget {
         "/": (context) => const IntroScreen(),
         GameScreen.route: (context) => const GameScreen(),
       },
-      // onGenerateRoute: ((settings) {
-      //   if (settings.name == OtpScreen.route) {
-      //     final args = settings.arguments as Map;
-      //     return MaterialPageRoute(
-      //       builder: (context) =>
-      //           OtpScreen(mobileNumber: args[Args.argMobileNumber], country: args[Args.argSelectedCountry],),
-      //     );
-      //   } else if (settings.name == PersonalDetailScreen.route) {
-      //     final args = settings.arguments as Map;
-      //     return MaterialPageRoute(
-      //       builder: (context) =>
-      //           PersonalDetailScreen(isRegistration: args[Args.argIsRegistration]),
-      //     );
-      //   }
-      // }),
+      onGenerateRoute: ((settings) {
+        if (settings.name == GameOverScreen.route) {
+          final args = settings.arguments as Map;
+          return MaterialPageRoute(
+            builder: (context) =>
+                GameOverScreen(seconds: args['seconds'],),
+          );
+        }
+      }),
     );
   }
 }

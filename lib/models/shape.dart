@@ -78,26 +78,22 @@ class Square extends Shape {
 
   @override
   double left(Offset pos) {
-    // TODO: implement maxX
-    throw UnimplementedError();
+    return pos.dx;
   }
 
   @override
   double top(Offset pos) {
-    // TODO: implement maxY
-    throw UnimplementedError();
+    return pos.dy;
   }
 
   @override
   double right(Offset pos) {
-    // TODO: implement minX
-    throw UnimplementedError();
+    return pos.dx + side;
   }
 
   @override
   double bottom(Offset pos) {
-    // TODO: implement minY
-    throw UnimplementedError();
+    return pos.dy + side;
   }
 
 }

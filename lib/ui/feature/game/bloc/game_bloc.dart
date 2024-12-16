@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:asteroid_flutter/models/index.dart';
@@ -10,17 +11,23 @@ import '../../../../utils/player_trajectory.dart';
 class GameBloc extends ChangeNotifier {
 
   final Player _player;
+  final VoidCallback gameOver;
   late final GameTicker _gameTicker;
   List<Asteroid> _asteroids = [];
   final GlobalKey gameScreenKey = GlobalKey();
   double _initialFrameOffsetLimit = 0;
   int _minAsteroidCount = 10;
   final PlayerTrajectory _playerTrajectory = PlayerTrajectory();
+  Timer? _timer;
+  int _seconds = 0;
+
+  int get getTime => _seconds;
 
   bool _gameStarted = false;
 
   GameBloc({
     required Player player,
+    required this.gameOver,
   }) : _player = player;
 
   double playerPosX() => _player.posX!;
@@ -44,6 +51,10 @@ class GameBloc extends ChangeNotifier {
     _gameStarted = true;
     _startTicker(gameBox);
     _initializeParticles(asteroidCount: _minAsteroidCount, gameBox: gameBox);
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {_seconds++;},
+    );
     _update();
   }
 
@@ -61,6 +72,7 @@ class GameBloc extends ChangeNotifier {
   void _gameOver() {
     _gameTicker.stop();
     _update();
+    gameOver();
   }
 
   void _startTicker(RenderBox gameBox) {
@@ -212,5 +224,12 @@ class GameBloc extends ChangeNotifier {
   }
 
   void _update() => notifyListeners();
+
+  @override
+  void dispose() {
+    _asteroids.clear();
+    _player.projectiles.clear();
+    super.dispose();
+  }
 
 }

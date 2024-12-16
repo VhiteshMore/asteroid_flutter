@@ -1,6 +1,8 @@
 class AppStrings {
 
   static const String startGame = 'Start Game';
+  static const String gameOver = 'Game Over';
+  static const String tryAgain = 'Try Again';
 
 }
 
