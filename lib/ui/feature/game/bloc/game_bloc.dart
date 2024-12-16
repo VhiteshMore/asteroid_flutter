@@ -175,6 +175,24 @@ class GameBloc extends ChangeNotifier {
     }
     objects.sort((a, b) => a.x.compareTo(b.x));
 
+    Set<EdgeSort<Particle>> touching = {};
+
+    for (var object in objects) {
+      if (object.isLeft) {
+        for (var other in touching) {
+          if (object.object is Asteroid && other.object is WeaponProjectile) {
+            if (GameUtils.intersects(object.object, other.object)) {
+              _asteroids.remove(object.object);
+              _player.projectiles.remove(other.object);
+            }
+          }
+        }
+        touching.add(object);
+      } else {
+        touching.removeWhere((e) => e.object == object.object,);
+      }
+    }
+
     for (int i = 0; i < objects.length; i++) {
       //Sweep and prune based on runtime types of List<EdgeSort<Particle>> EdgeSort > object {Asteroid or WeaponProjectile}
       final asteroid1 = objects[i];
