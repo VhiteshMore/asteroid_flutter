@@ -143,12 +143,9 @@ class GameBloc extends ChangeNotifier {
   //Detect collision between players and asteroids based on the detection radius
   // around the player.
   void _detectPlayerAsteroidCollision() {
-    // _asteroids.sort((a, b) => a.shape.left(Offset(a.posX!, a.posY!)).compareTo(b.shape.left(Offset(b.posX!, b.posY!))));
     for (int i = 0; i < _asteroids.length; i++) {
       final asteroid1 = _asteroids[i];
 
-      // if (_player.shape.left(Offset(_player.posX!, _player.posY!)) >
-      //     asteroid1.shape.right(Offset(asteroid1.posX!, asteroid1.posY!))) break;
       //intersection
       if (GameUtils.intersects(_player, asteroid1)) {
         debugPrint("GameOver ${_player.toString()}; ${asteroid1.toString()}");
@@ -180,7 +177,7 @@ class GameBloc extends ChangeNotifier {
     for (var object in objects) {
       if (object.isLeft) {
         for (var other in touching) {
-          if (object.object is Asteroid && other.object is WeaponProjectile) {
+          if ((object.object is Asteroid && other.object is WeaponProjectile) || (object.object is WeaponProjectile && other.object is Asteroid)) {
             if (GameUtils.intersects(object.object, other.object)) {
               debugPrint("PewPew ${object.object.toString()}; ${other.object.toString()}");
               _asteroids.remove(object.object);
