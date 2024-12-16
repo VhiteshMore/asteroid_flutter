@@ -89,9 +89,6 @@ class GameUtils {
           angleInRadians = -math.atan2(p1.dy - p2.dy, p1.dx - p2.dx);
         }
       } else {
-        // if () {
-        //
-        // }
         angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
       }
     } else {
