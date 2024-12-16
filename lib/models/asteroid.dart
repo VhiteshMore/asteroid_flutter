@@ -97,4 +97,9 @@ class Asteroid extends Particle {
       acceleration.hashCode ^
       points.hashCode;
 
+  @override
+  String toString() {
+    return '''Asteroid -> posX: $posX; posY: $posY''';
+  }
+
 }

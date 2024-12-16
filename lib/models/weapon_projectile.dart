@@ -52,4 +52,9 @@ class WeaponProjectile extends Particle {
       direction.hashCode ^
       acceleration.hashCode;
 
+  @override
+  String toString() {
+    return '''WeaponProjectile -> posX: $posX; posY: $posY''';
+  }
+
 }

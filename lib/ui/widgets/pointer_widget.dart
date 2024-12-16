@@ -9,10 +9,12 @@ class PointerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Transform(
-      transform: Matrix4.rotationZ(angle != null ? (angle!) : 0),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.white)
+      ),
       child: Transform.rotate(
-        angle: pi / 2,
+        angle: angle != null ? (angle!) + pi/2 : 0,
         child: const Icon(
           Icons.details,
           color: Colors.white,

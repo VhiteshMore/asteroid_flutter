@@ -26,7 +26,7 @@ class GameUtils {
       particles.add(Asteroid(
         color: Colors.primaries[rng.nextInt(Colors.primaries.length)],
         ///Todo: Custom Shapes
-        shape: Circle(radius: 50),
+        shape: Circle(radius: 25),
         speed: speed ?? 10,
         posX: asft.dx,
         posY: asft.dy,
@@ -118,10 +118,11 @@ class GameUtils {
   }
 
   static bool intersects(Particle object1, Particle object2) {
-    return object1.shape!.left(Offset(object1.posX!, object1.posY!)) < object2.shape!.right(Offset(object2.posX!, object2.posY!))
-        && object1.shape!.right(Offset(object1.posX!, object1.posY!)) > object2.shape!.left(Offset(object2.posX!, object2.posY!))
-        && object1.shape!.top(Offset(object1.posX!, object1.posY!)) < object2.shape!.bottom(Offset(object2.posX!, object2.posY!))
-        && object1.shape!.bottom(Offset(object1.posX!, object1.posY!)) > object2.shape!.top(Offset(object2.posX!, object2.posY!));
+    bool obj2RGrObj1L = object1.shape!.left(Offset(object1.posX!, object1.posY!)) < object2.shape!.right(Offset(object2.posX!, object2.posY!));
+    bool obj1RGrObj2L = object1.shape!.right(Offset(object1.posX!, object1.posY!)) > object2.shape!.left(Offset(object2.posX!, object2.posY!));
+    bool obj2BGrObj1T = object1.shape!.top(Offset(object1.posX!, object1.posY!)) < object2.shape!.bottom(Offset(object2.posX!, object2.posY!));
+    bool obj1BGrObj2T = object1.shape!.bottom(Offset(object1.posX!, object1.posY!)) > object2.shape!.top(Offset(object2.posX!, object2.posY!));
+    return obj2RGrObj1L && obj1RGrObj2L && obj2BGrObj1T && obj1BGrObj2T;
   }
 
 }

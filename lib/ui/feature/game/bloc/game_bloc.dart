@@ -151,10 +151,10 @@ class GameBloc extends ChangeNotifier {
       //     asteroid1.shape.right(Offset(asteroid1.posX!, asteroid1.posY!))) break;
       //intersection
       if (GameUtils.intersects(_player, asteroid1)) {
+        debugPrint("GameOver ${_player.toString()}; ${asteroid1.toString()}");
         _gameOver();
       }
     }
-
   }
 
   //Detect collision between Asteroids and Projectiles
@@ -182,6 +182,7 @@ class GameBloc extends ChangeNotifier {
         for (var other in touching) {
           if (object.object is Asteroid && other.object is WeaponProjectile) {
             if (GameUtils.intersects(object.object, other.object)) {
+              debugPrint("PewPew ${object.object.toString()}; ${other.object.toString()}");
               _asteroids.remove(object.object);
               _player.projectiles.remove(other.object);
             }
@@ -189,23 +190,14 @@ class GameBloc extends ChangeNotifier {
         }
         touching.add(object);
       } else {
-        touching.removeWhere((e) => e.object == object.object,);
-      }
-    }
-
-    for (int i = 0; i < objects.length; i++) {
-      //Sweep and prune based on runtime types of List<EdgeSort<Particle>> EdgeSort > object {Asteroid or WeaponProjectile}
-      final asteroid1 = objects[i];
-
-      for (int j = 0; j < objects.length; j ++) {
-
+        touching.remove(object);
       }
     }
   }
 
   //Add projectile based on player's position & direction
   void addProjectile() {
-    debugPrint("_player posX:${_player.posX}, posY: ${_player.posY}");
+    // debugPrint("_player posX:${_player.posX}, posY: ${_player.posY}");
     _player.projectiles.add(WeaponProjectile(
       posX: playerPosX(),
       posY: playerPosY(),

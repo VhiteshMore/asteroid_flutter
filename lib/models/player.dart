@@ -86,4 +86,9 @@ class Player extends Particle {
       acceleration.hashCode ^
       score.hashCode;
 
+  @override
+  String toString() {
+    return '''Player -> posX: $posX; posY: $posY''';
+  }
+
 }

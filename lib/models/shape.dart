@@ -110,26 +110,22 @@ class Polygon extends Shape {
 
   @override
   double left(Offset pos) {
-    // TODO: implement maxX
-    throw UnimplementedError();
+    return pos.dx - 5;
   }
 
   @override
   double top(Offset pos) {
-    // TODO: implement maxY
-    throw UnimplementedError();
+    return pos.dy - 5;
   }
 
   @override
   double right(Offset pos) {
-    // TODO: implement minX
-    throw UnimplementedError();
+    return pos.dx + 5;
   }
 
   @override
   double bottom(Offset pos) {
-    // TODO: implement minY
-    throw UnimplementedError();
+    return pos.dx + 5;
   }
 
 }
