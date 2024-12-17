@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 
 enum AsteroidShape {
 
-  circle,
-  rectangle,
-  square,
-  polygon;
+  circle;
+  // rectangle,
+  // square,
+  // polygon;
 
   static Shape getShape(AsteroidShape asteroidShape, {double? radius, double? side, double? width, double? height, List<Offset>? vertices}) {
     Shape shape = Circle(radius: 10);
@@ -18,18 +18,18 @@ enum AsteroidShape {
         if (radius != null) {
           shape = Circle(radius: radius);
         }
-      case AsteroidShape.rectangle:
-        if (width != null && height != null) {
-          shape = Rectangle(width: width, height: height);
-        }
-      case AsteroidShape.square:
-        if (side != null) {
-          shape = Square(side: side);
-        }
-      case AsteroidShape.polygon:
-        if (vertices != null && vertices.isNotEmpty) {
-          shape = Polygon(vertices: vertices);
-        }
+      // case AsteroidShape.rectangle:
+      //   if (width != null && height != null) {
+      //     shape = Rectangle(width: width, height: height);
+      //   }
+      // case AsteroidShape.square:
+      //   if (side != null) {
+      //     shape = Square(side: side);
+      //   }
+      // case AsteroidShape.polygon:
+      //   if (vertices != null && vertices.isNotEmpty) {
+      //     shape = Polygon(vertices: vertices);
+      //   }
     }
     return shape;
   }

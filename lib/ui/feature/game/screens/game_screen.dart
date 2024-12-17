@@ -25,7 +25,7 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
   void initState() {
     super.initState();
     _gameBloc = GameBloc(
-      player: Player(height: 50, width: 50, shape: Square(side: 5)),
+      player: Player(height: 50, width: 50, shape: Circle(radius: 5)),
       gameOver: () {
         Navigator.of(context).pushReplacementNamed(GameOverScreen.route, arguments: {'seconds': _gameBloc.getTime});
       },

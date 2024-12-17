@@ -193,8 +193,15 @@ class GameBloc extends ChangeNotifier {
           if ((object.object is Asteroid && other.object is WeaponProjectile) || (object.object is WeaponProjectile && other.object is Asteroid)) {
             if (GameUtils.intersects(object.object, other.object)) {
               // debugPrint("PewPew ${object.object.toString()}; ${other.object.toString()}");
-              _asteroids.remove(object.object);
-              _player.projectiles.remove(other.object);
+              if (object.object is Asteroid && other.object is WeaponProjectile) {
+                _asteroids.remove(object.object);
+                _player.projectiles.remove(other.object);
+              } else {
+                _asteroids.remove(other.object);
+                _player.projectiles.remove(object.object);
+              }
+              // _asteroids.remove(object.object);
+              // _player.projectiles.remove(other.object);
             }
           }
         }

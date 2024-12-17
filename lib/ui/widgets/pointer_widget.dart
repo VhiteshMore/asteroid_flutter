@@ -14,7 +14,7 @@ class PointerWidget extends StatelessWidget {
       child: const Icon(
         Icons.details,
         color: Colors.white,
-        size: 31,
+        size: 30,
       ),
     );
   }
