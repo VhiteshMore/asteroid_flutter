@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:asteroid_flutter/index.dart';
+import 'package:asteroid_flutter/models/shape.dart';
 
 abstract class Particle {
 

@@ -1,7 +1,10 @@
 import 'dart:math' as math;
 
+import 'package:asteroid_flutter/models/asteroid.dart';
+import 'package:asteroid_flutter/models/particle.dart';
 import 'package:flutter/material.dart';
-import 'package:asteroid_flutter/index.dart';
+
+import '../models/shape.dart';
 
 class GameUtils {
 

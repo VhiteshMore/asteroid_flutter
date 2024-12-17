@@ -1,4 +1,5 @@
-import 'package:asteroid_flutter/index.dart';
+import 'package:asteroid_flutter/models/particle.dart';
+import 'package:asteroid_flutter/models/shape.dart';
 
 class Projectile extends Particle {
 

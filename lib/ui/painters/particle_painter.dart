@@ -1,5 +1,8 @@
+import 'package:asteroid_flutter/models/asteroid.dart';
+import 'package:asteroid_flutter/models/shape.dart';
 import 'package:flutter/material.dart';
-import 'package:asteroid_flutter/index.dart';
+
+import '../../models/projectile.dart';
 
 class ParticlePainter extends CustomPainter {
 
