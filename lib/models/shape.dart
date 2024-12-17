@@ -17,22 +17,22 @@ class Circle extends Shape {
 
   @override
   double right(Offset pos) {
-    return pos.dx + radius * 2;
+    return pos.dx + radius;
   }
 
   @override
   double bottom(Offset pos) {
-    return pos.dy + radius * 2;
+    return pos.dy + radius;
   }
 
   @override
   double left(Offset pos) {
-    return pos.dx;
+    return pos.dx - radius;
   }
 
   @override
   double top(Offset pos) {
-    return pos.dy;
+    return pos.dy - radius;
   }
 
 }
