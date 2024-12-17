@@ -1,6 +1,4 @@
-import 'package:asteroid_flutter/models/particle.dart';
-import 'package:asteroid_flutter/models/shape.dart';
-import 'package:asteroid_flutter/models/projectile.dart';
+import 'package:asteroid_flutter/index.dart';
 
 class Player extends Particle {
 

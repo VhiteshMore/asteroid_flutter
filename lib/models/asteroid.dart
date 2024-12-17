@@ -1,7 +1,4 @@
-import 'dart:ui';
-
-import 'package:asteroid_flutter/models/particle.dart';
-import 'package:asteroid_flutter/models/shape.dart';
+import 'package:asteroid_flutter/index.dart';
 import 'package:flutter/material.dart';
 
 enum AsteroidShape {

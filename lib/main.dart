@@ -1,7 +1,5 @@
-import 'package:asteroid_flutter/ui/feature/game/screens/game_over_screen.dart';
-import 'package:asteroid_flutter/ui/feature/game/screens/game_screen.dart';
-import 'package:asteroid_flutter/ui/feature/game/screens/intro_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:asteroid_flutter/index.dart';
 
 void main() {
   runApp(const MyApp());

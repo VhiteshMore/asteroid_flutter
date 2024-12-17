@@ -1,11 +1,6 @@
-import 'package:asteroid_flutter/models/player.dart';
-import 'package:asteroid_flutter/models/shape.dart';
-import 'package:asteroid_flutter/ui/feature/game/bloc/game_bloc.dart';
-import 'package:asteroid_flutter/ui/feature/game/screens/game_over_screen.dart';
-import 'package:asteroid_flutter/ui/widgets/pointer_widget.dart';
 import 'package:flutter/material.dart';
-
-import '../../../painters/particle_painter.dart';
+import 'package:asteroid_flutter/ui/feature/game/bloc/game_bloc.dart';
+import 'package:asteroid_flutter/index.dart';
 
 class GameScreen extends StatefulWidget {
 
@@ -84,13 +79,16 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
                   ),
                   Align(
                     alignment: Alignment.topLeft,
-                    child: Text(
-                      'Timer: ${getFormattedTime()}',
-                      style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        decoration: null,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Text(
+                        'Timer: ${getFormattedTime()}',
+                        style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          decoration: null,
+                        ),
                       ),
                     ),
                   ),

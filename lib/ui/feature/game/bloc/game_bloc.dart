@@ -1,12 +1,8 @@
 import 'dart:async';
 import 'dart:math' as math;
 
-import 'package:asteroid_flutter/models/index.dart';
-import 'package:asteroid_flutter/utils/index.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../models/shape.dart';
-import '../../../../utils/player_trajectory.dart';
+import 'package:asteroid_flutter/index.dart';
 
 class GameBloc extends ChangeNotifier {
 
@@ -15,15 +11,13 @@ class GameBloc extends ChangeNotifier {
   late final GameTicker _gameTicker;
   List<Asteroid> _asteroids = [];
   final GlobalKey gameScreenKey = GlobalKey();
-  double _initialFrameOffsetLimit = 0;
+  double _initialFrameOffsetLimit = 20;
   int _minAsteroidCount = 10;
   final PlayerTrajectory _playerTrajectory = PlayerTrajectory();
   Timer? _timer;
   int _seconds = 0;
 
   int get getTime => _seconds;
-
-  bool _gameStarted = false;
 
   GameBloc({
     required Player player,
@@ -48,9 +42,9 @@ class GameBloc extends ChangeNotifier {
     assert(gameScreenKey.currentContext != null,
         'Please attach the gameScreenKey to your GameWidget where asteroids and projectiles will be displayed');
     RenderBox gameBox = gameScreenKey.currentContext!.findRenderObject() as RenderBox;
-    _gameStarted = true;
     _startTicker(gameBox);
     _initializeParticles(asteroidCount: _minAsteroidCount, gameBox: gameBox);
+    //Run Timer to track user play time
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (timer) {_seconds++;},
@@ -124,16 +118,17 @@ class GameBloc extends ChangeNotifier {
     }
   }
 
-  //Check if particles have left the gameScreen viewport in all directions and
-  // randomly generate new particles based on the limit of asteroids allowed
+  /* Check if particles have left the gameScreen viewport in all directions and
+  randomly generate new particles based on the limit of asteroids allowed */
   void _verifyParticleInGamePort(RenderBox gameBox) {
     final Size gameScreenSize = gameBox!.size;
     final gameOffset = gameBox.localToGlobal(Offset.zero);
     int removedAsteroidCount = _minAsteroidCount - _asteroids.length;
-    //Add new Asteroids
+    //Add new Asteroids if less than _minAsteroidCount on GameScreen
     if (removedAsteroidCount > 0) {
       _initializeParticles(gameBox: gameBox, asteroidCount: removedAsteroidCount);
     }
+    //Remove asteroids if they exit game viewport
     for (int i = 0; i < _asteroids.length; i++) {
       if (!(((_asteroids[i].posX! < gameOffset.dx + gameScreenSize.width + _initialFrameOffsetLimit) &&
           (_asteroids[i].posX! > gameOffset.dx - _initialFrameOffsetLimit)) ||
@@ -142,6 +137,7 @@ class GameBloc extends ChangeNotifier {
         _asteroids.remove(_asteroids[i]);
       }
     }
+    //Remove projectiles if they exit game viewport
     for (int i = 0; i < _player.projectiles.length; i++) {
       if (!((_player.projectiles[i].posX! < gameOffset.dx + gameScreenSize.width) ||
           (_player.projectiles[i].posX! > gameOffset.dx) ||
@@ -152,13 +148,12 @@ class GameBloc extends ChangeNotifier {
     }
   }
 
-  //Detect collision between players and asteroids based on the detection radius
-  // around the player.
+  //Detect collision between players and asteroids based on the detection radius around the player.
   void _detectPlayerAsteroidCollision() {
     for (int i = 0; i < _asteroids.length; i++) {
       final asteroid1 = _asteroids[i];
 
-      //intersection
+      //Intersection of Player and Asteroid
       if (GameUtils.intersects(_player, asteroid1)) {
         debugPrint("GameOver ${_player.toString()}; ${asteroid1.toString()}");
         _gameOver();
@@ -168,7 +163,7 @@ class GameBloc extends ChangeNotifier {
 
   //Detect collision between Asteroids and Projectiles
   void _detectAsteroidProjectileCollision() {
-    //Sorting
+
     List<EdgeSort<Particle>> objects = [];
     for (int i = 0; i < (_asteroids.length); i++) {
       objects.addAll([
@@ -182,13 +177,17 @@ class GameBloc extends ChangeNotifier {
         EdgeSort(object: projectiles[i], x: projectiles[i].shape!.right(Offset(projectiles[i].posX!, projectiles[i].posY!)), isLeft: false),
       ]);
     }
+    //Sorting objects for x-coordinate in ascending order
     objects.sort((a, b) => a.x.compareTo(b.x));
 
     Set<EdgeSort<Particle>> touching = {};
 
     for (var object in objects) {
+      //Sweep based on left & right edges of objects under consideration
       if (object.isLeft) {
         for (var other in touching) {
+
+          //Prune objects(asteroids & projectiles) if they intersect
           if ((object.object is Asteroid && other.object is Projectile) || (object.object is Projectile && other.object is Asteroid)) {
             if (GameUtils.intersects(object.object, other.object)) {
               debugPrint("PewPew ${object.object.toString()}; ${other.object.toString()}");

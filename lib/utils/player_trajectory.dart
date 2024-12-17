@@ -17,7 +17,7 @@ class PlayerTrajectory {
     _path.clear();
   }
 
-  Offset get directionOffset {
+  Offset get trajectoryDirectionOffset {
     if (_path.isEmpty) {
       return Offset.zero;
     }
@@ -31,6 +31,6 @@ class PlayerTrajectory {
     return Offset(avgDx, avgDy);
   }
 
-  double get playerDirection => atan2(directionOffset.dy, directionOffset.dx);
+  double get playerDirection => atan2(trajectoryDirectionOffset.dy, trajectoryDirectionOffset.dx);
 
 }

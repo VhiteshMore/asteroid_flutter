@@ -12,7 +12,7 @@ class GameTicker {
   // Maintain previous duration to calculate the next deltaTime.
   Duration _previousTime = Duration.zero;
 
-  // Maintiain previous deltaTime (in seconds) to calculate next time correction.
+  // Maintain previous deltaTime (in seconds) to calculate next time correction.
   // Initially, assumed that we are ticking at 60 frames per second.
   double _prevDeltaTime = 1000 / 60;
 

@@ -1,7 +1,5 @@
-import 'package:asteroid_flutter/ui/feature/game/screens/game_screen.dart';
-import 'package:asteroid_flutter/constants/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:asteroid_flutter/index.dart';
 
 class IntroScreen extends StatefulWidget {
 
@@ -19,7 +17,7 @@ class _IntroScreenState extends State<IntroScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           height: double.infinity,
           width: double.infinity,
           child: Center(
