@@ -10,27 +10,27 @@ class GameUtils {
 
   static final math.Random _rng = math.Random();
 
+  //Generate Asteroids based on mi
   static List<Asteroid> generateAsteroids(
       {required double height,
       required double width,
       required Offset center,
       double? speed,
-      int minLimit = 10,
       int maxLimit = 10,
       AsteroidShape shape = AsteroidShape.circle,
-      double? initialFrameOffsetLimit}) {
+      double? initialFrameOffsetLimit,}) {
     final rng = _rng;
     List<Asteroid> particles = [];
     for (int i = 0; i < maxLimit; i++) {
-      final asft = generatePeripheralOffset(height: height, width: width, initialFrameOffsetLimit: initialFrameOffsetLimit ?? 40);
+      final astOffset = generatePeripheralOffset(height: height, width: width, initialFrameOffsetLimit: initialFrameOffsetLimit ?? 40);
       particles.add(Asteroid(
         color: Colors.primaries[rng.nextInt(Colors.primaries.length)],
-        ///Todo: Custom Shapes
-        shape: Circle(radius: 25),
+        ///Todo: Add Support for Custom Shapes
+        shape: Circle(radius: (15 + (_rng.nextDouble() * 25))),
         speed: speed ?? 10,
-        posX: asft.dx,
-        posY: asft.dy,
-        direction: getDirection(center: center, pOfst: asft),
+        posX: astOffset.dx,
+        posY: astOffset.dy,
+        direction: getDirection(center: center, pOfst: astOffset),
         acceleration: 0,
       ));
     }
@@ -78,42 +78,11 @@ class GameUtils {
     return direction;
   }
 
-  static double getPointerDirection({required Offset p1, required Offset p2}) {
-    double rotation = 0;
-    double angleInRadians = 0;
-    if (p2.dx < p1.dx) {
-      if (p2.dy < p1.dy) {
-        if (p2.dx - p1.dx < 0 && p2.dx - p1.dx >= -20.5) {
-          angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
-        } else {
-          angleInRadians = -math.atan2(p1.dy - p2.dy, p1.dx - p2.dx);
-        }
-      } else {
-        angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
-      }
-    } else {
-      if (p2.dy < p1.dy) {
-        if (p2.dx - p1.dx <= 20.5 && p2.dx - p1.dx >= 0) {
-          angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
-        } else {
-          angleInRadians = -math.atan2(p2.dy - p1.dy, p2.dx - p1.dx);
-        }
-      } else {
-        if (p2.dy - p1.dy <= 20.5 && p2.dy - p1.dy >= -20.5) {
-          angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
-        } else {
-          angleInRadians = -math.atan2(p1.dx - p2.dx, p1.dy - p2.dy);
-        }
-      }
-    }
-    rotation = (angleInRadians + (2 * math.pi)) % (2 * math.pi);
-    return rotation;
-  }
-
   static double randomSign() {
     return _rng.nextBool() ? 1 : -1;
   }
 
+  //Check instersection between two objects
   static bool intersects(Particle object1, Particle object2) {
     bool obj2RGrObj1L = object1.shape!.left(Offset(object1.posX!, object1.posY!)) < object2.shape!.right(Offset(object2.posX!, object2.posY!));
     bool obj1RGrObj2L = object1.shape!.right(Offset(object1.posX!, object1.posY!)) > object2.shape!.left(Offset(object2.posX!, object2.posY!));

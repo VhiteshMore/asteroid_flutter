@@ -100,7 +100,6 @@ class GameBloc extends ChangeNotifier {
         speed: 100,
         initialFrameOffsetLimit: _initialFrameOffsetLimit,
         maxLimit: asteroidCount ??10,
-        minLimit: asteroidCount ?? 10,
     ));
   }
 
@@ -183,7 +182,6 @@ class GameBloc extends ChangeNotifier {
       ]);
     }
     objects.sort((a, b) => a.x.compareTo(b.x));
-    debugPrint("posXList:${objects.map((e) => e.x,).toList()}");
 
     Set<EdgeSort<Particle>> touching = {};
 
@@ -192,7 +190,7 @@ class GameBloc extends ChangeNotifier {
         for (var other in touching) {
           if ((object.object is Asteroid && other.object is WeaponProjectile) || (object.object is WeaponProjectile && other.object is Asteroid)) {
             if (GameUtils.intersects(object.object, other.object)) {
-              // debugPrint("PewPew ${object.object.toString()}; ${other.object.toString()}");
+              debugPrint("PewPew ${object.object.toString()}; ${other.object.toString()}");
               if (object.object is Asteroid && other.object is WeaponProjectile) {
                 _asteroids.remove(object.object);
                 _player.projectiles.remove(other.object);
@@ -200,8 +198,6 @@ class GameBloc extends ChangeNotifier {
                 _asteroids.remove(other.object);
                 _player.projectiles.remove(object.object);
               }
-              // _asteroids.remove(object.object);
-              // _player.projectiles.remove(other.object);
             }
           }
         }

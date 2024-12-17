@@ -33,8 +33,6 @@ class GameTicker {
     // New delta time in seconds.
     final deltaTime = diff.inMicroseconds / Duration.microsecondsPerSecond;
 
-    // TODO: filter delta over a few frames, to improve stability
-
     // Calculate time correction.
     _correction = deltaTime / _prevDeltaTime;
     _prevDeltaTime = deltaTime;

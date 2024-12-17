@@ -13,6 +13,7 @@ class ParticlePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    //Todo: Implement draw for other shapes as well
     for (int index = 0; index < asteroid.length; index++) {
       canvas.drawCircle(
         Offset(asteroid[index].posX!, asteroid[index].posY!),
