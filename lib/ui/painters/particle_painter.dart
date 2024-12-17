@@ -2,12 +2,12 @@ import 'package:asteroid_flutter/models/asteroid.dart';
 import 'package:asteroid_flutter/models/shape.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/weapon_projectile.dart';
+import '../../models/projectile.dart';
 
 class ParticlePainter extends CustomPainter {
 
   List<Asteroid> asteroid = [];
-  List<WeaponProjectile> projectiles = [];
+  List<Projectile> projectiles = [];
 
   ParticlePainter({required this.asteroid, required this.projectiles});
 

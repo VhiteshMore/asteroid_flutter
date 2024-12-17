@@ -1,7 +1,7 @@
 import 'package:asteroid_flutter/models/particle.dart';
 import 'package:asteroid_flutter/models/shape.dart';
 
-class WeaponProjectile extends Particle {
+class Projectile extends Particle {
 
   @override
   double? posX;
@@ -15,7 +15,7 @@ class WeaponProjectile extends Particle {
   @override
   Shape? shape;
 
-  WeaponProjectile({
+  Projectile({
     required this.posX,
     required this.posY,
     this.direction = 0,
@@ -34,7 +34,7 @@ class WeaponProjectile extends Particle {
   bool operator == (Object other) {
     if (identical(this, other)) return true;
 
-    return other is WeaponProjectile &&
+    return other is Projectile &&
         other.shape == shape &&
         other.posX == posX &&
         other.posY == posY &&
@@ -54,7 +54,7 @@ class WeaponProjectile extends Particle {
 
   @override
   String toString() {
-    return '''WeaponProjectile -> posX: $posX; posY: $posY''';
+    return '''Projectile -> posX: $posX; posY: $posY''';
   }
 
 }

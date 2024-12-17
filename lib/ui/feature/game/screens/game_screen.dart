@@ -65,7 +65,7 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
                       key: _gameBloc.gameScreenKey,
                       painter: ParticlePainter(
                         asteroid: _gameBloc.asteroids,
-                        projectiles: _gameBloc.weaponProjectiles,
+                        projectiles: _gameBloc.projectiles,
                       ),
                     ),
                   ),

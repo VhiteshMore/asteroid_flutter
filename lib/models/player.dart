@@ -1,6 +1,6 @@
 import 'package:asteroid_flutter/models/particle.dart';
 import 'package:asteroid_flutter/models/shape.dart';
-import 'package:asteroid_flutter/models/weapon_projectile.dart';
+import 'package:asteroid_flutter/models/projectile.dart';
 
 class Player extends Particle {
 
@@ -23,7 +23,7 @@ class Player extends Particle {
 
   double score;
 
-  List<WeaponProjectile> projectiles;
+  List<Projectile> projectiles;
 
   Player({
     required this.height,
@@ -35,7 +35,7 @@ class Player extends Particle {
     this.acceleration = 0,
     required this.shape,
     this.score = 0,
-    List<WeaponProjectile>? projectiles,
+    List<Projectile>? projectiles,
   })  : projectiles = projectiles ?? [],
         super(
           acceleration: 0,

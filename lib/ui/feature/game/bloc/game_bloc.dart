@@ -35,7 +35,7 @@ class GameBloc extends ChangeNotifier {
 
   List<Asteroid> get asteroids => _asteroids;
 
-  List<WeaponProjectile> get weaponProjectiles => _player.projectiles;
+  List<Projectile> get projectiles => _player.projectiles;
 
   double get pointerAngle {
     double angle = _playerTrajectory.playerDirection;
@@ -78,8 +78,7 @@ class GameBloc extends ChangeNotifier {
   void _startTicker(RenderBox gameBox) {
     _gameTicker = GameTicker();
     _gameTicker.run(
-          (deltaTime, timeCorrection) {
-        // debugPrint('_gameTicker Callback: dt: $dt; timeCorrection: $timeCorrection');
+      (deltaTime, timeCorrection) {
         _updateParticlePosition(deltaTime);
         _verifyParticleInGamePort(gameBox);
         _detectPlayerAsteroidCollision();
@@ -105,6 +104,7 @@ class GameBloc extends ChangeNotifier {
 
   //Update particle(Asteroid & Projectiles) position based on velocity & direction on gameTicker callback
   void _updateParticlePosition(double deltaTime) {
+    //Update Asteroid position
     for (int i = 0; i < _asteroids.length; i++) {
       double dx = _asteroids[i].posX! +
           (_asteroids[i].speed! * math.cos(_asteroids[i].direction!)) * deltaTime;
@@ -113,13 +113,14 @@ class GameBloc extends ChangeNotifier {
       _asteroids[i].posX = dx;
       _asteroids[i].posY = dy;
     }
-    for (int i = 0; i < weaponProjectiles.length; i++) {
-      double dx = weaponProjectiles[i].posX! +
-          (weaponProjectiles[i].speed! * math.cos(weaponProjectiles[i].direction!)) * deltaTime;
-      double dy = weaponProjectiles[i].posY! +
-          (weaponProjectiles[i].speed! * math.sin(weaponProjectiles[i].direction!)) * deltaTime;
-      weaponProjectiles[i].posX = dx;
-      weaponProjectiles[i].posY = dy;
+    //Update projectile position
+    for (int i = 0; i < projectiles.length; i++) {
+      double dx = projectiles[i].posX! +
+          (projectiles[i].speed! * math.cos(projectiles[i].direction!)) * deltaTime;
+      double dy = projectiles[i].posY! +
+          (projectiles[i].speed! * math.sin(projectiles[i].direction!)) * deltaTime;
+      projectiles[i].posX = dx;
+      projectiles[i].posY = dy;
     }
   }
 
@@ -175,10 +176,10 @@ class GameBloc extends ChangeNotifier {
         EdgeSort(object: _asteroids[i], x: _asteroids[i].shape.right(Offset(_asteroids[i].posX!, _asteroids[i].posY!)), isLeft: false),
       ]);
     }
-    for (int i = 0; i < (weaponProjectiles.length); i++) {
+    for (int i = 0; i < (projectiles.length); i++) {
       objects.addAll([
-        EdgeSort(object: weaponProjectiles[i], x: weaponProjectiles[i].shape!.left(Offset(weaponProjectiles[i].posX!, weaponProjectiles[i].posY!)), isLeft: true),
-        EdgeSort(object: weaponProjectiles[i], x: weaponProjectiles[i].shape!.right(Offset(weaponProjectiles[i].posX!, weaponProjectiles[i].posY!)), isLeft: false),
+        EdgeSort(object: projectiles[i], x: projectiles[i].shape!.left(Offset(projectiles[i].posX!, projectiles[i].posY!)), isLeft: true),
+        EdgeSort(object: projectiles[i], x: projectiles[i].shape!.right(Offset(projectiles[i].posX!, projectiles[i].posY!)), isLeft: false),
       ]);
     }
     objects.sort((a, b) => a.x.compareTo(b.x));
@@ -188,10 +189,10 @@ class GameBloc extends ChangeNotifier {
     for (var object in objects) {
       if (object.isLeft) {
         for (var other in touching) {
-          if ((object.object is Asteroid && other.object is WeaponProjectile) || (object.object is WeaponProjectile && other.object is Asteroid)) {
+          if ((object.object is Asteroid && other.object is Projectile) || (object.object is Projectile && other.object is Asteroid)) {
             if (GameUtils.intersects(object.object, other.object)) {
               debugPrint("PewPew ${object.object.toString()}; ${other.object.toString()}");
-              if (object.object is Asteroid && other.object is WeaponProjectile) {
+              if (object.object is Asteroid && other.object is Projectile) {
                 _asteroids.remove(object.object);
                 _player.projectiles.remove(other.object);
               } else {
@@ -210,8 +211,7 @@ class GameBloc extends ChangeNotifier {
 
   //Add projectile based on player's position & direction
   void addProjectile() {
-    // debugPrint("_player posX:${_player.posX}, posY: ${_player.posY}");
-    _player.projectiles.add(WeaponProjectile(
+    _player.projectiles.add(Projectile(
       posX: playerPosX(),
       posY: playerPosY(),
       direction: _player.direction,
